@@ -16,6 +16,8 @@ namespace Gem
 
 	class GEM_API Application
 	{
+		static Application* s_Instance;
+
 		bool OnWindowClosed(WindowClosedEvent& e);
 		bool m_Running = true;
 		std::unique_ptr<Window> m_Window;
@@ -31,6 +33,10 @@ namespace Gem
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
+
+		inline Window& GetWIndow() { return *m_Window; }
+
+		inline static Application& Get() { return *s_Instance; }
 	};
 
 	Application* CreateApplication();
