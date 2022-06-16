@@ -9,8 +9,6 @@
 #include "Core/Window/Window.h"
 #include "Core/Layer/LayerStack.h"
 
-#define BIND_EVENT_FUNC(x) std::bind(&x, this, std::placeholders::_1)
-
 namespace Gem
 {
 
@@ -34,7 +32,7 @@ namespace Gem
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
-		inline Window& GetWIndow() { return *m_Window; }
+		inline Window& GetWindow() { return *m_Window; }
 
 		inline static Application& Get() { return *s_Instance; }
 	};

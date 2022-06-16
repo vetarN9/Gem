@@ -1,5 +1,6 @@
 workspace "Gem"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -16,14 +17,17 @@ IncludeDir["GLFW"] = "Gem/vendor/GLFW/include"
 IncludeDir["Glad"] = "Gem/vendor/Glad/include"
 IncludeDir["imgui"] = "Gem/vendor/imgui"
 
-include "Gem/vendor/GLFW"
-include "Gem/vendor/Glad"
-include "Gem/vendor/imgui"
+group "Dependencies"
+	include "Gem/vendor/GLFW"
+	include "Gem/vendor/Glad"
+	include "Gem/vendor/imgui"
+group ""
 
 project "Gem"
 	location "Gem"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("int/" .. outputdir .. "/%{prj.name}")
@@ -56,7 +60,6 @@ project "Gem"
 
 	filter "system:windows"
 		cppdialect "C++20"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -68,7 +71,7 @@ project "Gem"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"
@@ -78,23 +81,24 @@ project "Gem"
 			"GEM_ENABLE_ASSERTS",
 			"GEM_ENABLE_VERIFY"
 		}
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "GEM_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "GEM_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("int/" .. outputdir .. "/%{prj.name}")
@@ -118,7 +122,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++20"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -128,15 +131,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "GEM_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "GEM_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "GEM_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On" 

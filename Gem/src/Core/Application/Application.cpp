@@ -1,6 +1,7 @@
 #include "gempch.h"
 
 #include "Application.h"
+#include "Core/Input/Input.h"
 
 #include <glad/glad.h>
 
@@ -15,7 +16,7 @@ namespace Gem
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FUNC(Application::OnEvent));
+		m_Window->SetEventCallback(GEM_BIND_EVENT_FUNC(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -39,11 +40,14 @@ namespace Gem
 	{
 		while (m_Running)
 		{
-			glClearColor(1, 0, 1, 1);
+			glClearColor(0, 1, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			auto [xPos, yPos] = Input::GetMousePos();
+			GEM_CORE_TRACE("MousePos = ({0}, {1})", xPos, yPos);
 
 			m_Window->OnUpdate();
 		}
@@ -52,7 +56,7 @@ namespace Gem
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowClosedEvent>(BIND_EVENT_FUNC(Application::OnWindowClosed));
+		dispatcher.Dispatch<WindowClosedEvent>(GEM_BIND_EVENT_FUNC(Application::OnWindowClosed));
 
 		// Loop through the LayerStack backwards until 
 		// a layer handles the event.

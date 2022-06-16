@@ -11,7 +11,7 @@ namespace Gem
 	{
 		None = 0,
 		AppTick, AppUpdate, AppRender,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased,KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,
 		WindowClosed, WindowFocused, WindowLostFocus, WindowMoved, WindowResized
 	};
