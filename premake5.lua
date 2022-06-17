@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Gem/vendor/GLFW/include"
 IncludeDir["Glad"] = "Gem/vendor/Glad/include"
 IncludeDir["imgui"] = "Gem/vendor/imgui"
+IncludeDir["glm"] = "Gem/vendor/glm"
 
 group "Dependencies"
 	include "Gem/vendor/GLFW"
@@ -38,7 +39,9 @@ project "Gem"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -47,7 +50,8 @@ project "Gem"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.imgui}"
+		"%{IncludeDir.imgui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links 
@@ -112,7 +116,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Gem/vendor/spdlog/include",
-		"Gem/src"
+		"Gem/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links
