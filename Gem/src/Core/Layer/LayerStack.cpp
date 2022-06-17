@@ -8,7 +8,6 @@ namespace Gem
 
 	LayerStack::LayerStack()
 	{
-		m_LayerInsert = m_LayerVector.begin();
 	}
 
 	LayerStack::~LayerStack()
@@ -19,7 +18,8 @@ namespace Gem
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_LayerInsert = m_LayerVector.emplace(m_LayerInsert, layer);
+		m_LayerVector.emplace(m_LayerVector.begin() + m_LayerVectorIndex, layer);
+		m_LayerVectorIndex++;
 	}
 
 	void LayerStack::PopLayer(Layer* layer)
@@ -28,7 +28,7 @@ namespace Gem
 		if (it != m_LayerVector.end()) 
 		{
 			m_LayerVector.erase(it);
-			m_LayerInsert--;
+			m_LayerVectorIndex--;
 		}
 	}
 

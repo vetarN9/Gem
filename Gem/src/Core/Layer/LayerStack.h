@@ -9,7 +9,7 @@ namespace Gem
 	class GEM_API LayerStack
 	{
 		std::vector<Layer*> m_LayerVector;
-		std::vector<Layer*>::iterator m_LayerInsert;
+		unsigned int m_LayerVectorIndex = 0;
 
 	public:
 		LayerStack();

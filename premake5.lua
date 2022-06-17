@@ -117,6 +117,7 @@ project "Sandbox"
 	{
 		"Gem/vendor/spdlog/include",
 		"Gem/src",
+		"Gem/vendor",
 		"%{IncludeDir.glm}"
 	}
 
