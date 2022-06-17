@@ -158,6 +158,8 @@
     <ClInclude Include="src\Core\Events\KeyEvent.h" />
     <ClInclude Include="src\Core\Events\MouseEvent.h" />
     <ClInclude Include="src\Core\Input\Input.h" />
+    <ClInclude Include="src\Core\Input\KeyCodes.h" />
+    <ClInclude Include="src\Core\Input\MouseButtonCodes.h" />
     <ClInclude Include="src\Core\Layer\Layer.h" />
     <ClInclude Include="src\Core\Layer\LayerStack.h" />
     <ClInclude Include="src\Core\Log\Log.h" />

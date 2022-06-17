@@ -85,6 +85,8 @@
     <ClInclude Include="src\gempch.h" />
     <ClInclude Include="src\Core\Input\Input.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Core\Input\KeyCodes.h" />
+    <ClInclude Include="src\Core\Input\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application\Application.cpp">

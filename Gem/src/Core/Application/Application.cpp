@@ -46,9 +46,6 @@ namespace Gem
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
-			auto [xPos, yPos] = Input::GetMousePos();
-			GEM_CORE_TRACE("MousePos = ({0}, {1})", xPos, yPos);
-
 			m_Window->OnUpdate();
 		}
 	}

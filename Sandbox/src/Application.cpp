@@ -8,12 +8,16 @@ public:
 
 	void OnUpdate() override
 	{
-		GEM_INFO("ExampleLayer::Update");
+		//GEM_INFO("ExampleLayer::Update");
+		if (Gem::Input::IsKeyPressed(GEM_KEY_H))
+		{
+			GEM_INFO("H Was pressed!");
+		}
 	}
 
 	void OnEvent(Gem::Event& event) override
 	{
-		GEM_TRACE("{0}", event);
+		//GEM_TRACE("{0}", event);
 	}
 };
 
