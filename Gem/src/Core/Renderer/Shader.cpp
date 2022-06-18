@@ -6,8 +6,6 @@
 namespace Gem
 {
 
-
-
 	Shader::Shader(const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 

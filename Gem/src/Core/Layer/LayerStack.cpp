@@ -1,8 +1,6 @@
 #include "gempch.h"
 #include "LayerStack.h"
 
-#include <vector>
-
 namespace Gem
 {
 

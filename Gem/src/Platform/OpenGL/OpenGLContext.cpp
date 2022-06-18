@@ -1,5 +1,4 @@
 #include "gempch.h"
-
 #include "OpenGLContext.h"
 
 #include <GLFW/glfw3.h>
@@ -19,6 +18,8 @@ namespace Gem
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		GEM_CORE_ASSERT(status, "Failed to load Glad");
+
+		GEM_CORE_INFO("Renderer: {0}", glGetString(GL_RENDERER));
 	}
 
 	void OpenGLContext::SwapBuffers()

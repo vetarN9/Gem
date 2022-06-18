@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include "Core/Events/ApplicationEvent.h"
 #include "Core/Core.h"
 #include "Core/Events/Event.h"
@@ -9,6 +7,10 @@
 #include "Core/Log/Log.h"
 #include "Core/Window/Window.h"
 #include "Core/Debug/ImGui/ImGuiLayer.h"
+
+#include "Core/Renderer/Shader.h"
+#include "Core/Renderer/Buffer.h"
+
 
 namespace Gem
 {
@@ -23,7 +25,10 @@ namespace Gem
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
-
+		unsigned int m_VertexArray;
+		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr <VertexBuffer> m_VertexBuffer;
+		std::unique_ptr <IndexBuffer> m_IndexBuffer;
 	public:
 		Application();
 		virtual ~Application();
