@@ -6,8 +6,10 @@
 #include "Core/Events/KeyEvent.h"
 #include "Core/Events/MouseEvent.h"
 
+#include "Platform/OpenGL/OpenGLContext.h"
+#include "Core/Renderer/RenderingContext.h"
+
 #include <GLFW/glfw3.h>
-#include <glad/glad.h>
 
 namespace Gem
 {
@@ -15,6 +17,8 @@ namespace Gem
 	class WindowsWindow : public Window
 	{
 		GLFWwindow* m_Window;
+		RenderingContext* m_Context;
+
 		struct WindowData
 		{
 			std::string Title;
