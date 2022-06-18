@@ -33,7 +33,7 @@ namespace Gem
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class GEM_API Event
+	class Event
 	{
 	public:
 		bool m_Handled = false;

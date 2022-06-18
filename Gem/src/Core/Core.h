@@ -1,11 +1,6 @@
 #pragma once
 
 #ifdef GEM_PLATFORM_WINDOWS
-	#ifdef GEM_EXPORT_DLL
-		#define GEM_API __declspec(dllexport)
-	#else
-		#define GEM_API __declspec(dllimport)
-	#endif // GEM_EXPORT_DLL
 #else
 	#error GEM ONLY SUPPORTS WINDOWS AT THE MOMENT!
 #endif GEM_PLATFORM_WINDOWS

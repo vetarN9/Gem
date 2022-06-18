@@ -6,7 +6,7 @@
 namespace Gem
 {
 
-	class GEM_API LayerStack
+	class LayerStack
 	{
 		std::vector<Layer*> m_LayerVector;
 		unsigned int m_LayerVectorIndex = 0;

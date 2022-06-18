@@ -23,7 +23,7 @@ namespace Gem
 	};
 
 	// Interface representing a window on a desktop system
-	class GEM_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFunc = std::function<void(Event&)>;

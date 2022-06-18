@@ -5,7 +5,7 @@
 namespace Gem
 {
 
-	class GEM_API WindowResizedEvent : public Event
+	class WindowResizedEvent : public Event
 	{
 		unsigned int m_Width, m_Height;
 
@@ -28,7 +28,7 @@ namespace Gem
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GEM_API WindowClosedEvent : public Event
+	class WindowClosedEvent : public Event
 	{
 	public:
 		WindowClosedEvent() {}
@@ -37,7 +37,7 @@ namespace Gem
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GEM_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() {}
@@ -46,7 +46,7 @@ namespace Gem
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GEM_API AppUpdateEvent : public Event
+	class AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {}
@@ -55,7 +55,7 @@ namespace Gem
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GEM_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}

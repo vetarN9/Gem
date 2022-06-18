@@ -5,7 +5,7 @@
 namespace Gem
 {
 
-	class GEM_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 		float m_MouseX, m_MouseY;
 
@@ -14,8 +14,8 @@ namespace Gem
 			: m_MouseX(x), m_MouseY(y) { }
 
 
-		inline int GetX() const { return m_MouseX; }
-		inline int GetY() const { return m_MouseY; }
+		inline float GetX() const { return m_MouseX; }
+		inline float GetY() const { return m_MouseY; }
 
 		std::string ToString() const override
 		{
@@ -28,7 +28,7 @@ namespace Gem
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	};
 
-	class GEM_API MouseButtonEvent : public Event
+	class MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -42,7 +42,7 @@ namespace Gem
 			: m_Button(button) { }
 	};
 
-	class GEM_API MouseButtonPressedEvent : public MouseButtonEvent
+	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -58,7 +58,7 @@ namespace Gem
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class GEM_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)
@@ -74,7 +74,7 @@ namespace Gem
 		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
 
-	class GEM_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 		float m_OffsetX, m_OffsetY;
 

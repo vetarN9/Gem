@@ -5,7 +5,7 @@
 namespace Gem
 {
 
-	class GEM_API KeyEvent : public Event
+	class KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -19,7 +19,7 @@ namespace Gem
 			: m_KeyCode(keyCode) { }
 	};
 
-	class GEM_API KeyPressedEvent : public KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 		int m_RepeatCount;
 
@@ -39,7 +39,7 @@ namespace Gem
 		EVENT_CLASS_TYPE(KeyPressed)
 	};
 
-	class GEM_API KeyReleasedEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keyCode)
@@ -55,7 +55,7 @@ namespace Gem
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class GEM_API KeyTypedEvent : public KeyEvent
+	class KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keyCode)

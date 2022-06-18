@@ -5,7 +5,7 @@
 namespace Gem
 {
 
-	class GEM_API Input
+	class Input
 	{
 		static Input* s_Instance;
 

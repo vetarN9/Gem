@@ -13,7 +13,7 @@
 namespace Gem
 {
 
-	class GEM_API Application
+	class Application
 	{
 		static Application* s_Instance;
 
