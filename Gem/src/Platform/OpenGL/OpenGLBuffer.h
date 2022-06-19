@@ -8,13 +8,18 @@ namespace Gem
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 		uint32_t m_RendererID;
+		BufferLayout m_BufferLayout;
 
 	public:
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
-		virtual void Bind() const;
-		virtual void Unbind() const;
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
+
+		virtual const BufferLayout& GetBufferLayout() const override { return m_BufferLayout; }
+		virtual void SetBufferLayout(const BufferLayout& bufferLayout) override { m_BufferLayout = bufferLayout; }
+
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer
