@@ -9,13 +9,13 @@ namespace Gem
 
 	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
 	{
-		switch (Renderer::CurrentAPI())
+		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::none:
+			case RendererAPI::API::none:
 				GEM_CORE_ASSERT(false, "A RendererAPI must be selected!"); 
 				return nullptr;
 
-			case RendererAPI::OpenGL:
+			case RendererAPI::API::OpenGL:
 				return new OpenGLVertexBuffer(vertices, size);
 
 			default:
@@ -26,13 +26,13 @@ namespace Gem
 
 	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
-		switch (Renderer::CurrentAPI())
+		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::none:
+			case RendererAPI::API::none:
 				GEM_CORE_ASSERT(false, "A RendererAPI must be selected!");
 				return nullptr;
 
-			case RendererAPI::OpenGL:
+			case RendererAPI::API::OpenGL:
 				return new OpenGLIndexBuffer(indices, size);
 
 			default:

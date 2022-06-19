@@ -1,20 +1,19 @@
 #pragma once
 
+#include "RenderCommand.h"
+
 namespace Gem
 {
 
-	enum class RendererAPI
-	{
-		none = 0,
-		OpenGL = 1
-	};
-
 	class Renderer
 	{
-		static RendererAPI s_RendererAPI;
-
 	public:
-		inline static RendererAPI CurrentAPI() { return s_RendererAPI; }
+		static void BeginScene();
+		static void EndScene();
+
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	};
 
 }

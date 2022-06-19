@@ -9,13 +9,13 @@ namespace Gem
 
 	VertexArray* VertexArray::Create()
 	{
-		switch (Renderer::CurrentAPI())
+		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::none:
+			case RendererAPI::API::none:
 				GEM_CORE_ASSERT(false, "A RendererAPI must be selected!");
 				return nullptr;
 
-			case RendererAPI::OpenGL:
+			case RendererAPI::API::OpenGL:
 				return new OpenGLVertexArray();
 
 			default:
