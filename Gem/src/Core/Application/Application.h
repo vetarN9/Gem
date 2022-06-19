@@ -8,8 +8,9 @@
 #include "Core/Window/Window.h"
 #include "Core/Debug/ImGui/ImGuiLayer.h"
 
-#include "Core/Renderer/Shader.h"
 #include "Core/Renderer/Buffer.h"
+#include "Core/Renderer/BufferLayout.h"
+#include "Core/Renderer/Shader.h"
 
 
 namespace Gem
@@ -31,7 +32,7 @@ namespace Gem
 		std::unique_ptr <IndexBuffer> m_IndexBuffer;
 	public:
 		Application();
-		virtual ~Application();
+		virtual ~Application() = default;
 
 		void Run();
 		void OnEvent(Event& e);

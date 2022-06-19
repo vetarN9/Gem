@@ -155,6 +155,7 @@
     <ClInclude Include="src\Core\Layer\LayerStack.h" />
     <ClInclude Include="src\Core\Log\Log.h" />
     <ClInclude Include="src\Core\Renderer\Buffer.h" />
+    <ClInclude Include="src\Core\Renderer\BufferLayout.h" />
     <ClInclude Include="src\Core\Renderer\Renderer.h" />
     <ClInclude Include="src\Core\Renderer\RenderingContext.h" />
     <ClInclude Include="src\Core\Renderer\Shader.h" />
