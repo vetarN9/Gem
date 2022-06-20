@@ -1,7 +1,7 @@
 #include "gempch.h"
 #include "VertexArray.h"
 
-#include "Renderer.h"
+#include "Core/Renderer/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
 namespace Gem

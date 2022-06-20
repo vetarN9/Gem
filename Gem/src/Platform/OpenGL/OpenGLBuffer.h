@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Renderer/Buffer.h"
+#include "Core/Renderer/Buffer/Buffer.h"
 
 namespace Gem
 {

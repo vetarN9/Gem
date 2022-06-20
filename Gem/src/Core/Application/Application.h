@@ -1,20 +1,19 @@
 #pragma once
 
 #include "Core/Core.h"
-#include "Core/Events/ApplicationEvent.h"
-#include "Core/Events/Event.h"
-#include "Core/Layer/LayerStack.h"
-#include "Core/Log/Log.h"
-#include "Core/Input/Input.h"
+
 #include "Core/Window/Window.h"
+#include "Core/Layer/LayerStack.h"
+#include "Core/Events/Event.h"
+#include "Core/Events/ApplicationEvent.h"
+
 #include "Core/Debug/ImGui/ImGuiLayer.h"
 
-#include "Core/Renderer/Buffer.h"
-#include "Core/Renderer/BufferLayout.h"
-#include "Core/Renderer/Shader.h"
-#include "Core/Renderer/VertexArray.h"
-
-#include "Core/Renderer/Renderer.h"
+#include "Core/Renderer/Buffer/Buffer.h"
+#include "Core/Renderer/Buffer/BufferLayout.h"
+#include "Core/Renderer/Buffer/VertexArray.h"
+#include "Core/Renderer/Shader/Shader.h"
+#include "Core/Renderer/Camera/OrthographicCamera.h"
 
 namespace Gem
 {
@@ -34,6 +33,8 @@ namespace Gem
 
 		std::shared_ptr<Shader> m_Shader2;
 		std::shared_ptr <VertexArray> m_SquareVertexArray;
+
+		OrthographicCamera m_OrthoCamera;
 
 	public:
 		Application();

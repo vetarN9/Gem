@@ -3,8 +3,6 @@
 #include <functional>
 #include <sstream>
 
-#include "Core/Core.h"
-
 namespace Gem
 {
 	enum class EventType

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Renderer/VertexArray.h"
+#include "Core/Renderer/Buffer/VertexArray.h"
 
 namespace Gem
 {
