@@ -10,7 +10,7 @@ class ExampleLayer : public Gem::Layer
 
 	Gem::OrthographicCamera m_OrthoCamera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 0.01f;
+	float m_CameraSpeed = 5.0f;
 	float m_CameraRotation = 0.0f;
 
 public:
@@ -131,7 +131,7 @@ public:
 		m_Shader2.reset(new Gem::Shader(vertexSrc2, fragmentSrc2));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Gem::Timestep timestep) override
 	{
 		if (Gem::Input::IsKeyPressed(GEM_KEY_R)) 
 		{
@@ -141,19 +141,19 @@ public:
 		}
 
 		if (Gem::Input::IsKeyPressed(GEM_KEY_LEFT) && Gem::Input::IsKeyPressed(GEM_KEY_LEFT_SHIFT))
-			m_CameraRotation += m_CameraSpeed * 60;
+			m_CameraRotation += m_CameraSpeed * 60 * timestep;
 		else if (Gem::Input::IsKeyPressed(GEM_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraSpeed;
+			m_CameraPosition.x -= m_CameraSpeed * timestep;
 
 		if (Gem::Input::IsKeyPressed(GEM_KEY_RIGHT) && Gem::Input::IsKeyPressed(GEM_KEY_LEFT_SHIFT))
-			m_CameraRotation -= m_CameraSpeed * 60;
+			m_CameraRotation -= m_CameraSpeed * 60 * timestep;
 		else if (Gem::Input::IsKeyPressed(GEM_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraSpeed;
+			m_CameraPosition.x += m_CameraSpeed * timestep;
 
 		if (Gem::Input::IsKeyPressed(GEM_KEY_UP))
-			m_CameraPosition.y += m_CameraSpeed;
+			m_CameraPosition.y += m_CameraSpeed * timestep;
 		if (Gem::Input::IsKeyPressed(GEM_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraSpeed;
+			m_CameraPosition.y -= m_CameraSpeed * timestep;
 
 		Gem::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Gem::RenderCommand::Clear();

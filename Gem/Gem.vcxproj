@@ -163,6 +163,7 @@
     <ClInclude Include="src\Core\Renderer\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Core\Renderer\Renderer\RenderingContext.h" />
     <ClInclude Include="src\Core\Renderer\Shader\Shader.h" />
+    <ClInclude Include="src\Core\Timer\Timestep.h" />
     <ClInclude Include="src\Core\Window\Window.h" />
     <ClInclude Include="src\Gem.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />

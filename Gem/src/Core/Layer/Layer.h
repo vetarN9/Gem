@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/Events/Event.h"
+#include "Core/Timer/Timestep.h"
 
 namespace Gem
 {
@@ -13,7 +14,7 @@ namespace Gem
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep timestep) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

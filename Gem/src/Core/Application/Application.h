@@ -6,6 +6,8 @@
 #include "Core/Layer/LayerStack.h"
 #include "Core/Events/ApplicationEvent.h"
 
+#include "Core/Timer/Timestep.h"
+
 #include "Core/Debug/ImGui/ImGuiLayer.h"
 
 namespace Gem
@@ -17,9 +19,12 @@ namespace Gem
 
 		bool OnWindowClosed(WindowClosedEvent& e);
 		bool m_Running = true;
+
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
+
+		float m_LastFrameTime = 0.0f;
 
 	public:
 		Application();
