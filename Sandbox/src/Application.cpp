@@ -9,10 +9,13 @@ class ExampleLayer : public Gem::Layer
 	std::shared_ptr <Gem::VertexArray> m_SquareVertexArray;
 
 	Gem::OrthographicCamera m_OrthoCamera;
+	glm::vec3 m_CameraPosition;
+	float m_CameraSpeed = 0.01f;
+	float m_CameraRotation = 0.0f;
 
 public:
 	ExampleLayer()
-		: Layer("Example"), m_OrthoCamera(-1.6f, 1.6f, -0.9f, 0.9f)
+		: Layer("Example"), m_OrthoCamera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
 	{
 		m_VertexArray.reset(Gem::VertexArray::Create());
 
@@ -130,11 +133,33 @@ public:
 
 	void OnUpdate() override
 	{
+		if (Gem::Input::IsKeyPressed(GEM_KEY_R)) 
+		{
+			m_CameraPosition.x = 0.0f;
+			m_CameraPosition.y = 0.0f;
+			m_CameraRotation = 0.0f;
+		}
+
+		if (Gem::Input::IsKeyPressed(GEM_KEY_LEFT) && Gem::Input::IsKeyPressed(GEM_KEY_LEFT_SHIFT))
+			m_CameraRotation += m_CameraSpeed * 60;
+		else if (Gem::Input::IsKeyPressed(GEM_KEY_LEFT))
+			m_CameraPosition.x -= m_CameraSpeed;
+
+		if (Gem::Input::IsKeyPressed(GEM_KEY_RIGHT) && Gem::Input::IsKeyPressed(GEM_KEY_LEFT_SHIFT))
+			m_CameraRotation -= m_CameraSpeed * 60;
+		else if (Gem::Input::IsKeyPressed(GEM_KEY_RIGHT))
+			m_CameraPosition.x += m_CameraSpeed;
+
+		if (Gem::Input::IsKeyPressed(GEM_KEY_UP))
+			m_CameraPosition.y += m_CameraSpeed;
+		if (Gem::Input::IsKeyPressed(GEM_KEY_DOWN))
+			m_CameraPosition.y -= m_CameraSpeed;
+
 		Gem::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Gem::RenderCommand::Clear();
 
-		m_OrthoCamera.SetPosition({ 0.3f, 0.1f, 0.0f });
-		m_OrthoCamera.SetRotation(45.0f);
+		m_OrthoCamera.SetPosition(m_CameraPosition);
+		m_OrthoCamera.SetRotation(m_CameraRotation);
 
 		Gem::Renderer::BeginScene(m_OrthoCamera);
 		{
@@ -152,7 +177,7 @@ public:
 
 	void OnEvent(Gem::Event& event) override
 	{
-		
+
 	}
 };
 
