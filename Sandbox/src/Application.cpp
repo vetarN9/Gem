@@ -7,11 +7,13 @@
 
 class ExampleLayer : public Gem::Layer
 {
-	std::shared_ptr<Gem::Shader> m_Shader;
-	std::shared_ptr <Gem::VertexArray> m_VertexArray;
+	Gem::Ref<Gem::Shader> m_Shader;
+	Gem::Ref<Gem::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Gem::Shader> m_Shader2;
-	std::shared_ptr <Gem::VertexArray> m_SquareVertexArray;
+	Gem::Ref<Gem::Shader> m_Shader2, m_TextureShader;
+	Gem::Ref<Gem::VertexArray> m_SquareVertexArray;
+
+	Gem::Ref<Gem::Texture2D> m_Texture;
 
 	Gem::OrthographicCamera m_OrthoCamera;
 	glm::vec3 m_CameraPosition;
@@ -34,7 +36,7 @@ public:
 			0.0f, 0.5f, 0.0f, 0.7f, 0.7f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<Gem::VertexBuffer> vertexBuffer;
+		Gem::Ref<Gem::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Gem::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		Gem::BufferLayout layout = {
@@ -46,29 +48,30 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Gem::IndexBuffer> indexBuffer;
+		Gem::Ref<Gem::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Gem::IndexBuffer::Create(indices, (sizeof(indices) / sizeof(uint32_t))));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVertexArray.reset(Gem::VertexArray::Create());
 
-		float vertices2[4 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float vertices2[4 * 5] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<Gem::VertexBuffer> squareVertexBuffer;
+		Gem::Ref<Gem::VertexBuffer> squareVertexBuffer;
 		squareVertexBuffer.reset(Gem::VertexBuffer::Create(vertices2, sizeof(vertices2)));
 
 		squareVertexBuffer->SetBufferLayout({
-			{ Gem::ShaderDataType::Float3, "a_Position" }
+			{ Gem::ShaderDataType::Float3, "a_Position" },
+			{ Gem::ShaderDataType::Float2, "a_TexCoord" }
 		});
 		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
 
 		uint32_t indices2[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Gem::IndexBuffer> squareIndexBuffer;
+		Gem::Ref<Gem::IndexBuffer> squareIndexBuffer;
 		squareIndexBuffer.reset(Gem::IndexBuffer::Create(indices2, (sizeof(indices2) / sizeof(uint32_t))));
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
 
@@ -142,6 +145,46 @@ public:
 		)";
 
 		m_Shader2.reset(Gem::Shader::Create(vertexSrc2, fragmentSrc2));
+
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Gem::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+
+		m_Texture = Gem::Texture2D::Create("Assets/Textures/Checkerboard.png");
+
+		std::dynamic_pointer_cast<Gem::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Gem::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Gem::Timestep timestep) override
@@ -191,7 +234,10 @@ public:
 				}
 			}
 
-			Gem::Renderer::Submit(m_Shader, m_VertexArray);
+			m_Texture->Bind();
+			Gem::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+			//Gem::Renderer::Submit(m_Shader, m_VertexArray);
 
 			Gem::Renderer::EndScene();
 		}

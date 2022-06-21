@@ -14,6 +14,7 @@
 
 #include "Core/Renderer/Renderer/Renderer.h"
 #include "Core/Renderer/Renderer/RenderCommand.h"
+#include "Core/Renderer/Texture/Texture.h"
 
 #include "Core/Renderer/Buffer/Buffer.h"
 #include "Core/Renderer/Buffer/BufferLayout.h"

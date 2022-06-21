@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef GEM_PLATFORM_WINDOWS
 #else
 	#error GEM ONLY SUPPORTS WINDOWS AT THE MOMENT!
@@ -27,3 +29,14 @@
 #define BIT_SHIFT(x) (1 << x)
 
 #define GEM_BIND_EVENT_FUNC(func) std::bind(&func, this, std::placeholders::_1)
+
+namespace Gem
+{
+
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+
+}
