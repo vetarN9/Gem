@@ -25,6 +25,7 @@ namespace Gem
 		auto it = std::find(m_LayerVector.begin(), m_LayerVector.end(), layer);
 		if (it != m_LayerVector.end()) 
 		{
+			layer->OnDetach();
 			m_LayerVector.erase(it);
 			m_LayerVectorIndex--;
 		}
