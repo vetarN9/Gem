@@ -13,7 +13,7 @@ class ExampleLayer : public Gem::Layer
 	Gem::Ref<Gem::Shader> m_Shader2, m_TextureShader;
 	Gem::Ref<Gem::VertexArray> m_SquareVertexArray;
 
-	Gem::Ref<Gem::Texture2D> m_Texture;
+	Gem::Ref<Gem::Texture2D> m_Texture, m_Texture2;
 
 	Gem::OrthographicCamera m_OrthoCamera;
 	glm::vec3 m_CameraPosition;
@@ -182,6 +182,7 @@ public:
 		m_TextureShader.reset(Gem::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
 		m_Texture = Gem::Texture2D::Create("Assets/Textures/Checkerboard.png");
+		m_Texture2 = Gem::Texture2D::Create("Assets/Textures/Alena.png");
 
 		std::dynamic_pointer_cast<Gem::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Gem::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -235,6 +236,9 @@ public:
 			}
 
 			m_Texture->Bind();
+			Gem::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+			m_Texture2->Bind();
 			Gem::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 			//Gem::Renderer::Submit(m_Shader, m_VertexArray);

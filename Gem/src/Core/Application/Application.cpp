@@ -4,6 +4,8 @@
 #include "Core/Log/Log.h"
 #include "Core/Input/Input.h"
 
+#include "Core/Renderer/Renderer/Renderer.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Gem
@@ -19,6 +21,8 @@ namespace Gem
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(GEM_BIND_EVENT_FUNC(Application::OnEvent));
 		m_Window->SetVSync(false);
+
+		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
