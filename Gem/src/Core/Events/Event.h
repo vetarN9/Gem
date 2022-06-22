@@ -50,19 +50,17 @@ namespace Gem
 	class EventDispatcher
 	{
 		Event& m_Event;
-		template<typename eventType>
-		using EventFunc = std::function<bool(eventType&)>;
 
 	public:
 		EventDispatcher(Event& event)
 			: m_Event(event) { }
 
-		template<typename eventType>
-		bool Dispatch(EventFunc<eventType> func)
+		template<typename T, typename F>
+		bool Dispatch(const F& func)
 		{
-			if (m_Event.GetEventType() == eventType::GetStaticType())
+			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled |= func(*(eventType*)&m_Event);
+				m_Event.m_Handled = func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;

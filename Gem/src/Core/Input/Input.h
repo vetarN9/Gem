@@ -5,9 +5,15 @@ namespace Gem
 
 	class Input
 	{
-		static Input* s_Instance;
+	protected:
+		Input() = default;
 
 	public:
+		Input(const Input&) = delete;
+		Input& operator=(const Input&) = delete;
+
+		static Input* s_Instance;
+
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
 		inline static bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }
 		inline static std::pair<float, float> GetMousePos() { return s_Instance->GetMousePosImpl(); }

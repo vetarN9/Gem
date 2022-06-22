@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Core/Renderer/Shader/Shader.h"
-
 #include <glm/glm.hpp>
+
+typedef unsigned int GLenum;
 
 namespace Gem
 {
@@ -11,7 +12,12 @@ namespace Gem
 	{
 		uint32_t m_RendererID;
 
+		std::string ReadFile(const std::string& path);
+		std::unordered_map<GLenum, std::string> Parse(const std::string& src);
+		void Compile(const std::unordered_map<GLenum, std::string>& shaderSrcs);
+
 	public:
+		OpenGLShader(const std::string& path);
 		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
 		virtual ~OpenGLShader();
 
