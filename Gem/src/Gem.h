@@ -23,3 +23,4 @@
 #include "Core/Renderer/Shader/Shader.h"
 
 #include "Core/Renderer/Camera/OrthographicCamera.h"
+#include "Core/Renderer/Camera/OrthographicCameraController.h"

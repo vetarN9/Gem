@@ -26,9 +26,17 @@ namespace Gem
 		std::string src = ReadFile(path);
 		auto shaderSrcs = Parse(src);
 		Compile(shaderSrcs);
+
+		// Get name from given path
+		auto lastSlash = path.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = path.rfind('.');
+		auto count = lastDot == std::string::npos ? path.size() - lastSlash : lastDot - lastSlash;
+		m_Name = path.substr(lastSlash, count);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+		: m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> shaderSrcs;
 		shaderSrcs[GL_VERTEX_SHADER] = vertexSrc;
@@ -45,7 +53,7 @@ namespace Gem
 	{
 		std::string result;
 
-		std::ifstream in(path, std::ios::in, std::ios::binary);
+		std::ifstream in(path, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -90,7 +98,9 @@ namespace Gem
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSrcs)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIDs(shaderSrcs.size());
+		GEM_CORE_ASSERT(shaderSrcs.size() <= 2, "Only 2 shaders are supported!");
+		std::array<GLenum, 2> glShaderIDs;
+		int glShaderIndex = 0;
 
 		for (auto& kv : shaderSrcs)
 		{
@@ -123,7 +133,7 @@ namespace Gem
 			}
 
 			glAttachShader(program, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIndex++] = shader;
 		}
 
 

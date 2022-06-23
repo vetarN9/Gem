@@ -1,32 +1,29 @@
 #include <Gem.h>
 
 #include "Platform/OpenGL/OpenGLShader.h"
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "imgui/imgui.h"
 
 class ExampleLayer : public Gem::Layer
 {
+	Gem::ShaderLibrary m_ShaderLibrary;
 	Gem::Ref<Gem::Shader> m_Shader;
 	Gem::Ref<Gem::VertexArray> m_VertexArray;
 
-	Gem::Ref<Gem::Shader> m_Shader2, m_TextureShader;
+	Gem::Ref<Gem::Shader> m_Shader2;
 	Gem::Ref<Gem::VertexArray> m_SquareVertexArray;
 
 	Gem::Ref<Gem::Texture2D> m_Texture, m_Texture2;
 
-	Gem::OrthographicCamera m_OrthoCamera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 5.0f;
-	float m_CameraRotation = 0.0f;
-
-	glm::vec3 m_SquarePos;
+	Gem::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 public:
 	ExampleLayer()
-		: Layer("Example"), m_OrthoCamera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePos(0.0f)
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
 		m_VertexArray.reset(Gem::VertexArray::Create());
 
@@ -110,7 +107,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Gem::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Gem::Shader::Create("triangle", vertexSrc, fragmentSrc);
 
 		std::string vertexSrc2 = R"(
 			#version 330 core
@@ -144,51 +141,29 @@ public:
 			}
 		)";
 
-		m_Shader2.reset(Gem::Shader::Create(vertexSrc2, fragmentSrc2));
+		m_Shader2 = Gem::Shader::Create("square", vertexSrc2, fragmentSrc2);
 
-		m_TextureShader.reset(Gem::Shader::Create("Assets/Shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("Assets/Shaders/Texture.glsl");
 
 		m_Texture = Gem::Texture2D::Create("Assets/Textures/Checkerboard.png");
 		m_Texture2 = Gem::Texture2D::Create("Assets/Textures/Alena.png");
 
-		std::dynamic_pointer_cast<Gem::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Gem::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Gem::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Gem::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Gem::Timestep timestep) override
 	{
-		if (Gem::Input::IsKeyPressed(GEM_KEY_R)) 
-		{
-			m_CameraPosition.x = 0.0f;
-			m_CameraPosition.y = 0.0f;
-			m_CameraRotation = 0.0f;
-		}
-
-		if (Gem::Input::IsKeyPressed(GEM_KEY_LEFT) && Gem::Input::IsKeyPressed(GEM_KEY_LEFT_SHIFT))
-			m_CameraRotation += m_CameraSpeed * 60 * timestep;
-		else if (Gem::Input::IsKeyPressed(GEM_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraSpeed * timestep;
-
-		if (Gem::Input::IsKeyPressed(GEM_KEY_RIGHT) && Gem::Input::IsKeyPressed(GEM_KEY_LEFT_SHIFT))
-			m_CameraRotation -= m_CameraSpeed * 60 * timestep;
-		else if (Gem::Input::IsKeyPressed(GEM_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraSpeed * timestep;
-
-		if (Gem::Input::IsKeyPressed(GEM_KEY_UP))
-			m_CameraPosition.y += m_CameraSpeed * timestep;
-		if (Gem::Input::IsKeyPressed(GEM_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraSpeed * timestep;
+		m_CameraController.OnUpdate(timestep);
 
 		Gem::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Gem::RenderCommand::Clear();
 
-		m_OrthoCamera.SetPosition(m_CameraPosition);
-		m_OrthoCamera.SetRotation(m_CameraRotation);
 
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-
-		Gem::Renderer::BeginScene(m_OrthoCamera);
+		Gem::Renderer::BeginScene(m_CameraController.GetCamera());
 		{
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
 			std::dynamic_pointer_cast<Gem::OpenGLShader>(m_Shader2)->Bind();
 			std::dynamic_pointer_cast<Gem::OpenGLShader>(m_Shader2)->UploadUniformFloat3("u_Color", m_SquareColor);
 
@@ -202,11 +177,13 @@ public:
 				}
 			}
 
+			auto textureShader = m_ShaderLibrary.Get("Texture");
+
 			m_Texture->Bind();
-			Gem::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+			Gem::Renderer::Submit(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 			m_Texture2->Bind();
-			Gem::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+			Gem::Renderer::Submit(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 			//Gem::Renderer::Submit(m_Shader, m_VertexArray);
 
@@ -226,7 +203,7 @@ public:
 
 	void OnEvent(Gem::Event& event) override
 	{
-
+		m_CameraController.OnEvent(event);
 	}
 };
 

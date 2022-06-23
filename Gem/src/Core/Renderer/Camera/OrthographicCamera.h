@@ -14,8 +14,11 @@ namespace Gem
 		float m_Rotation = 0.0f;
 
 		void RecalculateViewMatrix();
+
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
+
+		void SetProjection(float left, float right, float bottom, float top);
 
 		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
