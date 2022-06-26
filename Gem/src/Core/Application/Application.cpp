@@ -56,7 +56,6 @@ namespace Gem
 			{
 				for (Layer* layer : m_LayerStack)
 					layer->OnImGuiRender();
-
 			}
 			m_ImGuiLayer->End();
 

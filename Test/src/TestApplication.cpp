@@ -145,8 +145,8 @@ public:
 
 		auto textureShader = m_ShaderLibrary.Load("Assets/Shaders/Texture.glsl");
 
-		m_Texture = Gem::Texture2D::Create("Assets/Textures/Checkerboard.png");
-		m_Texture2 = Gem::Texture2D::Create("Assets/Textures/Alena.png");
+		m_Texture = Gem::Texture2D::Create("Assets/Textures/Checkerboard2.png");
+		m_Texture2 = Gem::Texture2D::Create("Assets/Textures/blyaat.png");
 
 		std::dynamic_pointer_cast<Gem::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<Gem::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
@@ -167,9 +167,9 @@ public:
 			std::dynamic_pointer_cast<Gem::OpenGLShader>(m_Shader2)->Bind();
 			std::dynamic_pointer_cast<Gem::OpenGLShader>(m_Shader2)->UploadUniformFloat3("u_Color", m_SquareColor);
 
-			for (int x = 0; x < 20; x++) 
+			for (int x = 10; x < 15; x++) 
 			{
-				for (int y = 0; y < 20; y++)
+				for (int y = 10; y < 15; y++)
 				{
 					glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
@@ -207,15 +207,15 @@ public:
 	}
 };
 
-class Sandbox : public Gem::Application
+class Test : public Gem::Application
 {
 public:
-	Sandbox()
+	Test()
 	{
 		PushLayer(new ExampleLayer());
 	}
 
-	~Sandbox()
+	~Test()
 	{
 
 	}
@@ -223,5 +223,5 @@ public:
 
 Gem::Application* Gem::CreateApplication()
 {
-	return new Sandbox();
+	return new Test();
 }

@@ -16,7 +16,7 @@ namespace Gem
 		float m_Zoom = 1.0f;
 
 		glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
-		float m_CameraSpeed = 5.0f;
+		float m_CameraSpeed = 30.0f;
 		float m_CameraRotation = 0.0f;
 
 		OrthographicCamera m_Camera;

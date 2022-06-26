@@ -7,7 +7,7 @@ extern Gem::Application* Gem::CreateApplication();
 int main(int argc, char* argv[])
 {
 	Gem::Log::Init();
-	GEM_CORE_WARN("Initialized Log");
+	GEM_CORE_INFO("Initialized Log");
 
 	auto app = Gem::CreateApplication();
 	app->Run();

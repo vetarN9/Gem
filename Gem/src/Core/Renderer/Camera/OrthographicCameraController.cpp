@@ -19,15 +19,36 @@ namespace Gem
 		m_CameraSpeed = m_Zoom;
 
 		if (Input::IsKeyPressed(GEM_KEY_A))
-			m_CameraPosition.x -= m_CameraSpeed * timestep;
+		{ 
+			m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraSpeed * timestep;
+			m_CameraPosition.y -= sin(glm::radians(m_CameraRotation)) * m_CameraSpeed * timestep;
+		}
+
 		if (Input::IsKeyPressed(GEM_KEY_D))
-			m_CameraPosition.x += m_CameraSpeed * timestep;
+		{
+			m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraSpeed * timestep;
+			m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraSpeed * timestep;
+		}
+
 		if (Input::IsKeyPressed(GEM_KEY_W))
-			m_CameraPosition.y += m_CameraSpeed * timestep;
+		{
+			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraSpeed * timestep;
+			m_CameraPosition.y += cos(glm::radians(m_CameraRotation)) * m_CameraSpeed * timestep;
+		}
+
 		if (Input::IsKeyPressed(GEM_KEY_S))
-			m_CameraPosition.y -= m_CameraSpeed * timestep;
+		{
+			m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraSpeed * timestep;
+			m_CameraPosition.y -= cos(glm::radians(m_CameraRotation)) * m_CameraSpeed * timestep;
+		}
+
+		if (Input::IsKeyPressed(GEM_KEY_Q))
+			m_CameraRotation -= m_CameraSpeed / 4;
+		if (Input::IsKeyPressed(GEM_KEY_E))
+			m_CameraRotation += m_CameraSpeed / 4;
 
 		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.SetRotation(m_CameraRotation);
 	}
 
 	void OrthographicCameraController::OnEvent(Event& event)
