@@ -17,8 +17,10 @@ namespace Gem
 	{
 		static Application* s_Instance;
 
-		bool OnWindowClosed(WindowClosedEvent& e);
+		bool OnWindowClosed(WindowClosedEvent& event);
+		bool OnWindowResized(WindowResizedEvent& event);
 		bool m_Running = true;
+		bool m_Minimized = false;
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
@@ -31,7 +33,7 @@ namespace Gem
 		virtual ~Application() = default;
 
 		void Run();
-		void OnEvent(Event& e);
+		void OnEvent(Event& event);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);

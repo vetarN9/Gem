@@ -25,9 +25,6 @@
 	#endif // GEM_ENABLE_VERIFY
 #endif // GEM_DEBUG
 
-
-#define BIT_SHIFT(x) (1 << x)
-
 #define GEM_BIND_EVENT_FUNC(func) std::bind(&func, this, std::placeholders::_1)
 
 namespace Gem

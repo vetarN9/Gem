@@ -47,7 +47,7 @@ namespace Gem
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizedEvent& event)
 	{
-		m_AspectRatio = ((float)event.GetHeight() / (float)event.GetWidth());
+		m_AspectRatio = ((float)event.GetWidth() / (float)event.GetHeight());
 		m_Camera.SetProjection(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom);
 		return false;
 	}

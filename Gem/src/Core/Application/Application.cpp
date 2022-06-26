@@ -46,39 +46,59 @@ namespace Gem
 			Timestep timestep = currentTime - m_LastFrameTime;
 			m_LastFrameTime = currentTime;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
 
 			m_ImGuiLayer->Begin();
 			{
 				for (Layer* layer : m_LayerStack)
 					layer->OnImGuiRender();
 
-				m_ImGuiLayer->End();
 			}
+			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 		}
 	}
 
-	void Application::OnEvent(Event& e)
+	void Application::OnEvent(Event& event)
 	{
-		EventDispatcher dispatcher(e);
+		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowClosedEvent>(GEM_BIND_EVENT_FUNC(Application::OnWindowClosed));
+		dispatcher.Dispatch<WindowResizedEvent>(GEM_BIND_EVENT_FUNC(Application::OnWindowResized));
 
 		// Loop through the LayerStack backwards until 
 		// a layer handles the event.
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
-			(*--it)->OnEvent(e);
-			if (e.m_Handled)
+			(*--it)->OnEvent(event);
+			if (event.m_Handled)
 				break;
 		}
 	}
 
-	bool Application::OnWindowClosed(WindowClosedEvent& e)
+	bool Application::OnWindowClosed(WindowClosedEvent& event)
 	{
 		m_Running = false;
 		return true;
 	}
+
+	bool Application::OnWindowResized(WindowResizedEvent& event)
+	{
+		if (event.GetWidth() == 0 || event.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+
+		Renderer::OnWindowResized(event.GetWidth(), event.GetHeight());
+
+		return false;
+	}
+
 }
