@@ -1,6 +1,6 @@
 workspace "Gem"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "Test"
 
 	configurations
 	{
@@ -107,8 +107,8 @@ project "Gem"
 		runtime "Release"
 		optimize "on"
 
-project "Sandbox"
-	location "Sandbox"
+project "Test"
+	location "Test"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++20"
