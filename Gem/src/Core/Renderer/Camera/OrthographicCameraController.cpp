@@ -43,9 +43,9 @@ namespace Gem
 		}
 
 		if (Input::IsKeyPressed(GEM_KEY_Q))
-			m_CameraRotation -= m_CameraSpeed / 4;
+			m_CameraRotation -= m_RotationSpeed / 4;
 		if (Input::IsKeyPressed(GEM_KEY_E))
-			m_CameraRotation += m_CameraSpeed / 4;
+			m_CameraRotation += m_RotationSpeed / 4;
 
 		m_Camera.SetPosition(m_CameraPosition);
 		m_Camera.SetRotation(m_CameraRotation);

@@ -180,6 +180,26 @@ namespace Gem
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetInt(const std::string& name, int value)
+	{
+		UploadUniformInt(name, value);
+	}
+
+	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& vector3)
+	{
+		UploadUniformFloat3(name, vector3);
+	}
+
+	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& vector4)
+	{
+		UploadUniformFloat4(name, vector4);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& matrix4)
+	{
+		UploadUniformMat4(name, matrix4);
+	}
+
 	void OpenGLShader::UploadUniformInt(const std::string& name, int scalar)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());

@@ -24,7 +24,7 @@ namespace Gem
 		}
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -33,7 +33,7 @@ namespace Gem
 				return nullptr;
 
 			case RendererAPI::API::OpenGL:
-				return new OpenGLIndexBuffer(indices, size);
+				return std::make_shared<OpenGLIndexBuffer>(indices, size);
 
 			default:
 				GEM_CORE_ASSERT(false, "Unknown RendererAPI!");

@@ -165,6 +165,7 @@
     <ClInclude Include="src\Core\Renderer\Camera\OrthographicCameraController.h" />
     <ClInclude Include="src\Core\Renderer\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Core\Renderer\Renderer\Renderer.h" />
+    <ClInclude Include="src\Core\Renderer\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Core\Renderer\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Core\Renderer\Renderer\RenderingContext.h" />
     <ClInclude Include="src\Core\Renderer\Shader\Shader.h" />
@@ -611,6 +612,7 @@
     <ClCompile Include="src\Core\Renderer\Camera\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Core\Renderer\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Core\Renderer\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Core\Renderer\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Core\Renderer\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Core\Renderer\Shader\Shader.cpp" />
     <ClCompile Include="src\Core\Renderer\Texture\Texture.cpp" />

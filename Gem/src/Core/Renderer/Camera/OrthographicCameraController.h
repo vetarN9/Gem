@@ -17,6 +17,7 @@ namespace Gem
 
 		glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
 		float m_CameraSpeed = 30.0f;
+		float m_RotationSpeed = 1.0f;
 		float m_CameraRotation = 0.0f;
 
 		OrthographicCamera m_Camera;

@@ -49,7 +49,7 @@ public:
 
 		uint32_t indices[3] = { 0, 1, 2 };
 		Gem::Ref<Gem::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Gem::IndexBuffer::Create(indices, (sizeof(indices) / sizeof(uint32_t))));
+		indexBuffer = Gem::IndexBuffer::Create(indices, (sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVertexArray = Gem::VertexArray::Create();
@@ -72,7 +72,7 @@ public:
 
 		uint32_t indices2[6] = { 0, 1, 2, 2, 3, 0 };
 		Gem::Ref<Gem::IndexBuffer> squareIndexBuffer;
-		squareIndexBuffer.reset(Gem::IndexBuffer::Create(indices2, (sizeof(indices2) / sizeof(uint32_t))));
+		squareIndexBuffer = Gem::IndexBuffer::Create(indices2, (sizeof(indices2) / sizeof(uint32_t)));
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
 
 		std::string vertexSrc = R"(
