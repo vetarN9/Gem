@@ -135,12 +135,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Test2D.cpp" />
     <ClCompile Include="src\TestApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gem\Gem.vcxproj">
       <Project>{5EEE870B-CAF7-877C-5373-9E7CBF7B937C}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Test2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

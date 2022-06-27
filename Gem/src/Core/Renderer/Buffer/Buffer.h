@@ -16,7 +16,7 @@ namespace Gem
 		virtual const BufferLayout& GetBufferLayout() const = 0;
 		virtual void SetBufferLayout(const BufferLayout& bufferLayout) = 0;
 
-		static VertexBuffer* Create(float* vertices, uint32_t size);
+		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
 	};
 
 	class IndexBuffer

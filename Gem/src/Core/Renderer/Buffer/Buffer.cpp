@@ -7,7 +7,7 @@
 namespace Gem
 {
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -16,7 +16,7 @@ namespace Gem
 				return nullptr;
 
 			case RendererAPI::API::OpenGL:
-				return new OpenGLVertexBuffer(vertices, size);
+				return std::make_shared <OpenGLVertexBuffer>(vertices, size);
 
 			default:
 				GEM_CORE_ASSERT(false, "Unknown RendererAPI!");

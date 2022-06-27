@@ -1,10 +1,13 @@
 #include <Gem.h>
+#include <Core/Application/EntryPoint.h>
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "imgui/imgui.h"
+
+#include "Test2D.h"
 
 class ExampleLayer : public Gem::Layer
 {
@@ -25,7 +28,7 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
-		m_VertexArray.reset(Gem::VertexArray::Create());
+		m_VertexArray = Gem::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.7f, 0.0f, 0.7f, 1.0f,
@@ -34,7 +37,7 @@ public:
 		};
 
 		Gem::Ref<Gem::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Gem::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Gem::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		Gem::BufferLayout layout = {
 			{ Gem::ShaderDataType::Float3, "a_Position" },
@@ -49,7 +52,7 @@ public:
 		indexBuffer.reset(Gem::IndexBuffer::Create(indices, (sizeof(indices) / sizeof(uint32_t))));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVertexArray.reset(Gem::VertexArray::Create());
+		m_SquareVertexArray = Gem::VertexArray::Create();
 
 		float vertices2[4 * 5] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -59,7 +62,7 @@ public:
 		};
 
 		Gem::Ref<Gem::VertexBuffer> squareVertexBuffer;
-		squareVertexBuffer.reset(Gem::VertexBuffer::Create(vertices2, sizeof(vertices2)));
+		squareVertexBuffer = Gem::VertexBuffer::Create(vertices2, sizeof(vertices2));
 
 		squareVertexBuffer->SetBufferLayout({
 			{ Gem::ShaderDataType::Float3, "a_Position" },
@@ -196,8 +199,8 @@ public:
 		ImGui::Begin("Sliders");
 		{
 			ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
-			ImGui::End();
 		}
+		ImGui::End();
 
 	}
 
@@ -212,7 +215,8 @@ class Test : public Gem::Application
 public:
 	Test()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Test2D());
 	}
 
 	~Test()
