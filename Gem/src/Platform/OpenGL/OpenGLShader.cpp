@@ -180,9 +180,14 @@ namespace Gem
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::SetInt(const std::string& name, int value)
+	void OpenGLShader::SetInt(const std::string& name, int scalar)
 	{
-		UploadUniformInt(name, value);
+		UploadUniformInt(name, scalar);
+	}
+
+	void OpenGLShader::SetFloat(const std::string& name, float scalar)
+	{
+		UploadUniformFloat(name, scalar);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& vector3)
