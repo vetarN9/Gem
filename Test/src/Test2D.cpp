@@ -24,12 +24,16 @@ void Test2D::OnUpdate(Gem::Timestep timestep)
 	Gem::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 	Gem::RenderCommand::Clear();
 
+	static float rotation = 0.0f;
+	rotation += timestep * 50.0f;
+
 	Gem::Renderer2D::BeginScene(m_CameraController.GetCamera());
 	{
+		Gem::Renderer2D::DrawQuadRotated({ 1.0f, 0.0f }, { 0.8f, 0.8f }, -45.0f, { 0.8f, 0.2f, 0.3f, 1.0f });
 		Gem::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 		Gem::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-		Gem::Renderer2D::DrawQuad({ -5.0f, -5.0f, -0.1f }, { 10.0f, 10.0f }, m_Texture, 10.0f);
-		Gem::Renderer2D::DrawQuad({ -0.5f, -0.5f, 0.0f }, { 1.0f, 1.0f }, m_Texture, 20.0f);
+		Gem::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_Texture, 10.0f);
+		Gem::Renderer2D::DrawQuadRotated({ -2.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation, m_Texture, 20.0f);
 
 	}
 	Gem::Renderer2D::EndScene();
