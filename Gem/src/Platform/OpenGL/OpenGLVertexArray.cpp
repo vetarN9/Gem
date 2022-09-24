@@ -1,5 +1,7 @@
 #include "gempch.h"
-#include "OpenGLVertexArray.h"
+
+#include "Platform/OpenGL/OpenGLVertexArray.h"
+
 #include <glad/glad.h>
 
 namespace Gem
@@ -9,17 +11,17 @@ namespace Gem
 	{
 		switch (type)
 		{
-			case Gem::ShaderDataType::Float:    return GL_FLOAT;
-			case Gem::ShaderDataType::Float2:	return GL_FLOAT;
-			case Gem::ShaderDataType::Float3:   return GL_FLOAT;
-			case Gem::ShaderDataType::Float4:   return GL_FLOAT;
-			case Gem::ShaderDataType::Mat3:     return GL_FLOAT;
-			case Gem::ShaderDataType::Mat4:     return GL_FLOAT;
-			case Gem::ShaderDataType::Int:      return GL_INT;
-			case Gem::ShaderDataType::Int2:     return GL_INT;
-			case Gem::ShaderDataType::Int3:     return GL_INT;
-			case Gem::ShaderDataType::Int4:     return GL_INT;
-			case Gem::ShaderDataType::Bool:     return GL_BOOL;
+			case ShaderDataType::Float:    return GL_FLOAT;
+			case ShaderDataType::Float2:   return GL_FLOAT;
+			case ShaderDataType::Float3:   return GL_FLOAT;
+			case ShaderDataType::Float4:   return GL_FLOAT;
+			case ShaderDataType::Mat3:     return GL_FLOAT;
+			case ShaderDataType::Mat4:     return GL_FLOAT;
+			case ShaderDataType::Int:      return GL_INT;
+			case ShaderDataType::Int2:     return GL_INT;
+			case ShaderDataType::Int3:     return GL_INT;
+			case ShaderDataType::Int4:     return GL_INT;
+			case ShaderDataType::Bool:     return GL_BOOL;
 			default:
 				GEM_CORE_ASSERT(false, "Given ShaderDataType does not exist!");
 				return 0;
@@ -46,7 +48,7 @@ namespace Gem
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
 		GEM_CORE_ASSERT(vertexBuffer->GetBufferLayout().GetElements().size(), "vertexBuffer needs a layout!");
 
@@ -62,14 +64,14 @@ namespace Gem
 				ShaderDataTypeToOpenGLBaseType(element.Type),
 				element.Normalized ? GL_TRUE : GL_FALSE,
 				layout.GetStride(),
-				(const void*)(intptr_t)element.Offset);
+				(const void*)element.Offset);
 			m_VertexBufferIndex++;
 		}
 
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();

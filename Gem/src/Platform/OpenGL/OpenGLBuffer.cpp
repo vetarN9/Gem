@@ -1,5 +1,6 @@
 #include "gempch.h"
-#include "OpenGLBuffer.h"
+
+#include "Platform/OpenGL/OpenGLBuffer.h"
 
 #include <glad/glad.h>
 
@@ -41,9 +42,7 @@ namespace Gem
 		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 
-	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////// IndexBuffer /////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////
 
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
 		: m_Count(count)

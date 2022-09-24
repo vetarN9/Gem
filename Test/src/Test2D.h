@@ -4,14 +4,6 @@
 
 class Test2D : public Gem::Layer
 {
-	struct ProfileResult
-	{
-		const char* name;
-		float time;
-	};
-
-	std::vector<ProfileResult> m_ProfileResult;
-
 	Gem::OrthographicCameraController m_CameraController;
 
 	// Temp

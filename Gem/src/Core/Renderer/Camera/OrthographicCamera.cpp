@@ -1,5 +1,6 @@
 #include "gempch.h"
-#include "OrthographicCamera.h"
+
+#include "Core/Renderer/Camera/OrthographicCamera.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 

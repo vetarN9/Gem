@@ -156,7 +156,7 @@
     <ClInclude Include="src\Core\Renderer\Renderer\RendererAPI.h">
       <Filter>src\Core\Renderer\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Renderer\Renderer\RenderingContext.h">
+    <ClInclude Include="src\Core\Renderer\Renderer\RenderContext.h">
       <Filter>src\Core\Renderer\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Renderer\Shader\Shader.h">
@@ -1529,5 +1529,6 @@
     <ClCompile Include="vendor\stb\stb_image.cpp">
       <Filter>vendor\stb</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\Renderer\Renderer\RenderContext.cpp" />
   </ItemGroup>
 </Project>

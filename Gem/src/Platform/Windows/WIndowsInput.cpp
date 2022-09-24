@@ -1,13 +1,15 @@
 # include "gempch.h"
 
-#include "WindowsInput.h"
+#include "Platform/Windows/WIndowsInput.h"
+
 #include "Core/Application/Application.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Gem
 {
 
-	Input* Input::s_Instance = new WindowsInput();
+	Scope<Input> Input::s_Instance = CreateScope<WindowsInput>();
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "RendererAPI.h"
+#include "Core/Renderer/Renderer/RendererAPI.h"
 
 namespace Gem
 {
 
 	class RenderCommand
 	{
-		static RendererAPI* s_RendererAPI;
+		static Scope<RendererAPI> s_RendererAPI;
 
 	public:
 		inline static void Init() { s_RendererAPI->Init(); }
@@ -17,9 +17,9 @@ namespace Gem
 		inline static void SetClearColor(const glm::vec4& color) { s_RendererAPI->SetClearColor(color); }
 		inline static void Clear() { s_RendererAPI->Clear(); }
 
-		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0) 
+		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t count = 0)
 		{
-			s_RendererAPI->DrawIndexed(vertexArray, indexCount); 
+			s_RendererAPI->DrawIndexed(vertexArray, count);
 		}
 	};
 

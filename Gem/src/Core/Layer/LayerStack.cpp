@@ -1,17 +1,16 @@
 #include "gempch.h"
-#include "LayerStack.h"
+#include "Core/Layer/LayerStack.h"
 
 namespace Gem
 {
 
-	LayerStack::LayerStack()
-	{
-	}
-
 	LayerStack::~LayerStack()
 	{
 		for (Layer* layer : m_LayerVector)
+		{
+			layer->OnDetach();
 			delete layer;
+		}
 	}
 
 	void LayerStack::PushLayer(Layer* layer)

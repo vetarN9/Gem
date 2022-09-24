@@ -1,5 +1,6 @@
 #include "gempch.h"
-#include "Buffer.h"
+
+#include "Core/Renderer/Buffer/Buffer.h"
 
 #include "Core/Renderer/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
@@ -11,17 +12,12 @@ namespace Gem
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::none:
-			GEM_CORE_ASSERT(false, "A RendererAPI must be selected!");
-			return nullptr;
-
-		case RendererAPI::API::OpenGL:
-			return std::make_shared <OpenGLVertexBuffer>(size);
-
-		default:
-			GEM_CORE_ASSERT(false, "Unknown RendererAPI!");
-			return nullptr;
+			case RendererAPI::API::none:    GEM_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexBuffer>(size);
 		}
+
+		GEM_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
 	}
 
 	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
@@ -33,7 +29,7 @@ namespace Gem
 				return nullptr;
 
 			case RendererAPI::API::OpenGL:
-				return std::make_shared <OpenGLVertexBuffer>(vertices, size);
+				return CreateRef<OpenGLVertexBuffer>(vertices, size);
 
 			default:
 				GEM_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -50,7 +46,7 @@ namespace Gem
 				return nullptr;
 
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLIndexBuffer>(indices, size);
+				return CreateRef<OpenGLIndexBuffer>(indices, size);
 
 			default:
 				GEM_CORE_ASSERT(false, "Unknown RendererAPI!");

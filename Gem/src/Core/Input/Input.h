@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Core/Core.h"
+
 namespace Gem
 {
 
@@ -12,7 +14,7 @@ namespace Gem
 		Input(const Input&) = delete;
 		Input& operator=(const Input&) = delete;
 
-		static Input* s_Instance;
+		static Scope<Input> s_Instance;
 
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
 		inline static bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }

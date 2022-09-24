@@ -1,5 +1,6 @@
 #include "gempch.h"
-#include "OpenGLShader.h"
+
+#include "Platform/OpenGL/OpenGLShader.h"
 
 #include <fstream>
 
@@ -57,10 +58,18 @@ namespace Gem
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
-			result.resize(in.tellg());
-			in.seekg(0, std::ios::beg);
-			in.read(&result[0], result.size());
-			in.close();
+			size_t size = in.tellg();
+			if (size != -1)
+			{
+				result.resize(size);
+				in.seekg(0, std::ios::beg);
+				in.read(&result[0], size);
+				in.close();
+			}
+			else
+			{
+				GEM_CORE_ERROR("Could not read from file '{0}'", path);
+			}
 		}
 		else
 		{
@@ -76,20 +85,20 @@ namespace Gem
 
 		const char* typeToken = "#type";
 		size_t typeTokenLength = strlen(typeToken);
-		size_t pos = src.find(typeToken, 0);
+		size_t pos = src.find(typeToken, 0); //Start of shader type declaration line
 		while (pos != std::string::npos)
 		{
-			size_t eol = src.find_first_of("\r\n", pos);
-			GEM_CORE_ASSERT(eol != std::string::npos, "Syntax error!");
-
-			size_t begin = pos + typeTokenLength + 1;
+			size_t eol = src.find_first_of("\r\n", pos); //End of shader type declaration line
+			GEM_CORE_ASSERT(eol != std::string::npos, "Syntax error");
+			size_t begin = pos + typeTokenLength + 1; //Start of shader type name (after "#type " keyword)
 			std::string type = src.substr(begin, eol - begin);
 			GEM_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
 
-			size_t nextLinePos = src.find_first_not_of("\r\n", eol);
-			pos = src.find(typeToken, nextLinePos);
-			shaderSrcs[ShaderTypeFromString(type)] = src.substr(nextLinePos,
-				pos - (nextLinePos == std::string::npos ? src.size() - 1 : nextLinePos));
+			size_t nextLinePos = src.find_first_not_of("\r\n", eol); //Start of shader code after shader type declaration line
+			GEM_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
+			pos = src.find(typeToken, nextLinePos); //Start of next shader type declaration line
+
+			shaderSrcs[ShaderTypeFromString(type)] = (pos == std::string::npos) ? src.substr(nextLinePos) : src.substr(nextLinePos, pos - nextLinePos);
 		}
 
 		return shaderSrcs;
@@ -153,6 +162,7 @@ namespace Gem
 
 			for (auto id : glShaderIDs)
 			{
+				glDetachShader(program, id);
 				glDeleteShader(id);
 			}
 
@@ -180,14 +190,19 @@ namespace Gem
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::SetInt(const std::string& name, int scalar)
+	void OpenGLShader::SetInt(const std::string& name, int value)
 	{
-		UploadUniformInt(name, scalar);
+		UploadUniformInt(name, value);
 	}
 
-	void OpenGLShader::SetFloat(const std::string& name, float scalar)
+	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
 	{
-		UploadUniformFloat(name, scalar);
+		UploadUniformIntArray(name, values, count);
+	}
+
+	void OpenGLShader::SetFloat(const std::string& name, float value)
+	{
+		UploadUniformFloat(name, value);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& vector3)
@@ -209,6 +224,12 @@ namespace Gem
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1i(location, scalar);
+	}
+
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1iv(location, count, values);
 	}
 
 	void OpenGLShader::UploadUniformFloat(const std::string& name, float scalar)

@@ -18,10 +18,11 @@ namespace Gem
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
+		virtual void SetData(const void* data, uint32_t size) override;
+
 		virtual const BufferLayout& GetBufferLayout() const override { return m_BufferLayout; }
 		virtual void SetBufferLayout(const BufferLayout& bufferLayout) override { m_BufferLayout = bufferLayout; }
 
-		virtual void SetData(const void* data, uint32_t size) override;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer

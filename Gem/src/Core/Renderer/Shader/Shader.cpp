@@ -1,5 +1,6 @@
 #include "gempch.h"
-#include "Shader.h"
+
+#include "Core/Renderer/Shader/Shader.h"
 
 #include "Core/Renderer/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
@@ -16,7 +17,7 @@ namespace Gem
 				return nullptr;
 
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLShader>(path);
+				return CreateRef<OpenGLShader>(path);
 
 			default:
 				GEM_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -33,7 +34,7 @@ namespace Gem
 				return nullptr;
 
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+				return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 
 			default:
 				GEM_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -56,21 +57,21 @@ namespace Gem
 	}
 
 
-	Ref<Gem::Shader> ShaderLibrary::Load(const std::string& path)
+	Ref<Shader> ShaderLibrary::Load(const std::string& path)
 	{
 		auto shader = Shader::Create(path);
 		Add(shader);
 		return shader;
 	}
 
-	Ref<Gem::Shader> ShaderLibrary::Load(const std::string& name, const std::string& path)
+	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& path)
 	{
 		auto shader = Shader::Create(path);
 		Add(name, shader);
 		return shader;
 	}
 
-	Ref<Gem::Shader> ShaderLibrary::Get(const std::string& name)
+	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
 		GEM_CORE_ASSERT(m_Shaders.find(name) != m_Shaders.end(), "Given shader not found!");
 		return m_Shaders[name];

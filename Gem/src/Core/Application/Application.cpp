@@ -1,5 +1,5 @@
 #include "gempch.h"
-#include "Application.h"
+#include "Core/Application/Application.h"
 
 #include "Core/Log/Log.h"
 #include "Core/Input/Input.h"
@@ -18,14 +18,18 @@ namespace Gem
 		GEM_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = Window::Create();
 		m_Window->SetEventCallback(GEM_BIND_EVENT_FUNC(Application::OnEvent));
-		m_Window->SetVSync(false);
 
 		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
+	}
+
+	Application::~Application()
+	{
+		Renderer::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -71,9 +75,9 @@ namespace Gem
 
 		// Loop through the LayerStack backwards until 
 		// a layer handles the event.
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{
-			(*--it)->OnEvent(event);
+			(*it)->OnEvent(event);
 			if (event.m_Handled)
 				break;
 		}

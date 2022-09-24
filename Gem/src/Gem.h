@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Core/Core.h"
+
 #include "Core/Application/Application.h"
 #include "Core/Debug/ImGui/ImGuiLayer.h"
 #include "Core/Layer/Layer.h"

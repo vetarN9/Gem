@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Core/Renderer/Renderer/RenderingContext.h"
+#include "Core/Renderer/Renderer/RenderContext.h"
 
 struct GLFWwindow;
 
 namespace Gem
 {
 
-	class OpenGLContext : public RenderingContext
+	class OpenGLContext : public RenderContext
 	{
 		GLFWwindow* m_WindowHandle;
 

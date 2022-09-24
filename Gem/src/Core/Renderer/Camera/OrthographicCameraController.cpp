@@ -1,5 +1,6 @@
 #include "gempch.h"
-#include "OrthographicCameraController.h"
+
+#include "Core/Renderer/Camera/OrthographicCameraController.h"
 
 #include "Core/Input/Input.h"
 #include "Core/Input/KeyCodes.h"

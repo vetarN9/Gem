@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Core/Core.h"
+
 #ifdef GEM_PLATFORM_WINDOWS
 
 extern Gem::Application* Gem::CreateApplication();

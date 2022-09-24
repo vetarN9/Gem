@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Event.h"
+#include "Core/Events/Event.h"
 
 namespace Gem
 {
@@ -31,7 +31,7 @@ namespace Gem
 	class WindowClosedEvent : public Event
 	{
 	public:
-		WindowClosedEvent() {}
+		WindowClosedEvent() = default;
 
 		EVENT_CLASS_TYPE(WindowClosed)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -40,7 +40,7 @@ namespace Gem
 	class AppTickEvent : public Event
 	{
 	public:
-		AppTickEvent() {}
+		AppTickEvent() = default;
 
 		EVENT_CLASS_TYPE(AppTick)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -49,7 +49,7 @@ namespace Gem
 	class AppUpdateEvent : public Event
 	{
 	public:
-		AppUpdateEvent() {}
+		AppUpdateEvent() = default;
 
 		EVENT_CLASS_TYPE(AppUpdate)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)

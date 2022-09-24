@@ -1,11 +1,10 @@
 #include "gempch.h"
-#include "RenderCommand.h"
 
-#include "Platform/OpenGL/OpenGLRendererAPI.h"
+#include "Core/Renderer/Renderer/RenderCommand.h"
 
 namespace Gem
 {
 
-	RendererAPI* RenderCommand::s_RendererAPI = new OpenGLRendererAPI;
+	Scope<RendererAPI> RenderCommand::s_RendererAPI = RendererAPI::Create();
 
 }

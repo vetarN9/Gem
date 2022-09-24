@@ -7,7 +7,7 @@
 #include "Core/Events/MouseEvent.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
-#include "Core/Renderer/Renderer/RenderingContext.h"
+#include "Core/Renderer/Renderer/RenderContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -17,7 +17,7 @@ namespace Gem
 	class WindowsWindow : public Window
 	{
 		GLFWwindow* m_Window;
-		RenderingContext* m_Context;
+		Scope<RenderContext> m_Context;
 
 		struct WindowData
 		{
