@@ -9,7 +9,9 @@ class Test2D : public Gem::Layer
 	// Temp
 	Gem::Ref<Gem::VertexArray> m_SquareVertexArray;
 	Gem::Ref<Gem::Shader> m_FlatColorShader;
-	Gem::Ref<Gem::Texture2D> m_Texture;
+	Gem::Ref<Gem::Texture2D> m_Checkerboard;
+	Gem::Ref<Gem::Texture2D> m_SpriteSheet;
+	Gem::Ref<Gem::SubTexture2D> m_SubTexture;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
