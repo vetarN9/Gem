@@ -10,8 +10,11 @@ class Test2D : public Gem::Layer
 	Gem::Ref<Gem::VertexArray> m_SquareVertexArray;
 	Gem::Ref<Gem::Shader> m_FlatColorShader;
 	Gem::Ref<Gem::Texture2D> m_Checkerboard;
-	Gem::Ref<Gem::Texture2D> m_SpriteSheet;
-	Gem::Ref<Gem::SubTexture2D> m_SubTexture;
+	Gem::Ref<Gem::Texture2D> m_ChessPieces;
+	Gem::Ref<Gem::SubTexture2D> m_BlackKing;
+	Gem::Ref<Gem::SubTexture2D> m_WhiteKing;
+	Gem::Ref<Gem::SubTexture2D> m_BlackQueen;
+	Gem::Ref<Gem::SubTexture2D> m_WhiteQueen;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 

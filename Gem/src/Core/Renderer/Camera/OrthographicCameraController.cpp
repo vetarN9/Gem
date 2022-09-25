@@ -62,16 +62,21 @@ namespace Gem
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& event)
 	{
 		m_Zoom -= event.GetOffsetY() * 0.25f;
-		m_Zoom = std::clamp(m_Zoom, 0.25f, 7.5f);
-		m_Camera.SetProjection(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom);
+		m_Zoom = std::clamp(m_Zoom, 0.25f, 10.0f);
+		CalculateView();
 		return false;
 	}
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizedEvent& event)
 	{
 		m_AspectRatio = ((float)event.GetWidth() / (float)event.GetHeight());
-		m_Camera.SetProjection(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom);
+		CalculateView();
 		return false;
+	}
+
+	void OrthographicCameraController::CalculateView()
+	{
+		m_Camera.SetProjection(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom);
 	}
 
 }

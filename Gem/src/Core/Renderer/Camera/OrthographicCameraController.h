@@ -25,6 +25,8 @@ namespace Gem
 		bool OnMouseScrolled(MouseScrolledEvent& event);
 		bool OnWindowResized(WindowResizedEvent& event);
 
+		void CalculateView();
+
 	public:
 		OrthographicCameraController(float aspectRatio);
 
@@ -33,6 +35,9 @@ namespace Gem
 
 		OrthographicCamera& GetCamera() { return m_Camera; }
 		const OrthographicCamera& GetCamera() const { return m_Camera; }
+
+		float GetZoom() const { return m_Zoom; }
+		void SetZoom(float level) { m_Zoom = level; CalculateView(); }
 	};
 
 }
